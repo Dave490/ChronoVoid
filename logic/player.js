@@ -19,8 +19,13 @@ class Player {
         this.y += inputY * this.speed * dt;
     }
     draw(ctx) {
-        ctx.fillStyle = '#0f0';
-        ctx.fillRect(this.x-10, this.y-10, 20, 20);
+        const grad = ctx.createRadialGradient(this.x, this.y, 5, this.x, this.y, 15);
+        grad.addColorStop(0, '#0f0');
+        grad.addColorStop(1, '#030');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 15, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
 

@@ -22,7 +22,19 @@ class Enemy {
         if (this.hp <=0) this.dead = true;
     }
     draw(ctx) {
-        ctx.fillStyle='#f00';
-        ctx.fillRect(this.x-this.size/2, this.y-this.size/2, this.size, this.size);
+        const grad = ctx.createRadialGradient(
+            this.x,
+            this.y,
+            5,
+            this.x,
+            this.y,
+            this.size
+        );
+        grad.addColorStop(0, '#f66');
+        grad.addColorStop(1, '#300');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
