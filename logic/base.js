@@ -1,7 +1,8 @@
 class Base {
     constructor() {
         this.turrets = [];
-        this.resources = 0;
+        // start the player with some resources for building
+        this.resources = 20;
         new Button('Build Turret', 40, 40, () => this.buildTurret());
     }
     buildTurret() {
