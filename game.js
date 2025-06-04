@@ -12,6 +12,7 @@ const map = new GameMap();
 const base = new Base();
 const chrono = new Chrono();
 const enemies = [];
+const missiles = [];
 let wave = 0;
 
 function restartGame() {
@@ -38,12 +39,18 @@ function update(dt) {
     player.update(dt);
     chrono.update(dt);
     base.update(dt);
+    missiles.forEach(m => m.update(dt));
     enemies.forEach(e => e.update(dt, player));
     // remove dead enemies
     for (let i = enemies.length -1; i >=0; i--) {
         if (enemies[i].dead) {
             enemies.splice(i,1);
             score++;
+        }
+    }
+    for (let i = missiles.length -1; i >=0; i--) {
+        if (missiles[i].dead) {
+            missiles.splice(i,1);
         }
     }
     if (enemies.length === 0) spawnWave();
@@ -57,6 +64,7 @@ function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     map.draw(ctx);
     base.draw(ctx);
+    missiles.forEach(m => m.draw(ctx));
     enemies.forEach(e => e.draw(ctx));
     player.draw(ctx);
     drawHUD(player, wave, score);
