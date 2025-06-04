@@ -21,6 +21,14 @@ body {
     z-index: 10;
 }
 
+#version {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    z-index: 10;
+}
+
 #gameOverScreen {
     position: fixed;
     top: 0;

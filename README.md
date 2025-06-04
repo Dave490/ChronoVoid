@@ -9,5 +9,6 @@ This repository contains a small demo of a browser game built with HTML5 Canvas 
 - Turrets fire visible bullets and killing enemies yields additional resources
 - A simple leaderboard records your highest wave when the player dies
 - Local save system using `localStorage`
+- The current version is shown in the corner of the game screen
 
 Open `index.html` in a modern browser to run the demo. No build step is required.
