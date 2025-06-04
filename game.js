@@ -14,6 +14,12 @@ const chrono = new Chrono();
 const enemies = [];
 let wave = 0;
 
+function restartGame() {
+    localStorage.removeItem('chronovoid-save');
+    window.location.reload();
+}
+new Button('Restart', 40, 160, restartGame);
+
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
