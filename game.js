@@ -10,6 +10,7 @@ const chrono = new Chrono();
 const enemies = [];
 const bullets = [];
 let wave = 0;
+let isGameOver = false;
 
 function resize() {
     canvas.width = window.innerWidth;
@@ -29,6 +30,10 @@ function update(dt) {
     player.update(dt);
     chrono.update(dt);
     base.update(dt);
+    if (player.hp <= 0) {
+        gameOver();
+        return;
+    }
     bullets.forEach(b => b.update(dt, enemies));
     enemies.forEach(e => e.update(dt, player));
     // remove dead enemies
@@ -42,7 +47,7 @@ function update(dt) {
     for (let i = bullets.length -1; i >=0; i--) {
         if (bullets[i].dead) bullets.splice(i,1);
     }
-    if (enemies.length === 0) spawnWave();
+    if (enemies.length === 0 && !isGameOver) spawnWave();
 }
 
 function draw() {
@@ -55,12 +60,18 @@ function draw() {
     drawHUD(player, base, wave);
 }
 
+function gameOver() {
+    if (isGameOver) return;
+    isGameOver = true;
+    showGameOver(wave);
+}
+
 function gameLoop(timestamp) {
     const dt = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
     update(dt);
     draw();
-    requestAnimationFrame(gameLoop);
+    if (!isGameOver) requestAnimationFrame(gameLoop);
 }
 
 loadSave();

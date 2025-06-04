@@ -9,6 +9,14 @@
 <body>
     <canvas id="gameCanvas"></canvas>
     <div id="hud"></div>
+    <div id="gameOverScreen" style="display:none">
+        <h1>Game Over</h1>
+        <p>Your score: <span id="finalScore"></span></p>
+        <input id="playerName" placeholder="Your name">
+        <button id="saveScore">Save Score</button>
+        <ol id="leaderboard"></ol>
+        <button id="restartGame">Restart</button>
+    </div>
     <script src="ui/joystick.js"></script>
     <script src="ui/button.js"></script>
     <script src="ui/hud.js"></script>
@@ -19,6 +27,7 @@
     <script src="logic/map.js"></script>
     <script src="logic/save.js"></script>
     <script src="logic/chrono.js"></script>
+    <script src="ui/leaderboard.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
