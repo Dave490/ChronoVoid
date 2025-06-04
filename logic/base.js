@@ -10,20 +10,22 @@ class Base {
     buildTurret() {
         if (this.resources >= 10) {
             this.resources -= 10;
-            this.turrets.push({x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight});
+            this.turrets.push({x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, cooldown:0});
             saveGame();
         }
     }
     update(dt) {
         this.turrets.forEach(t => {
+            if (t.cooldown > 0) t.cooldown -= dt;
             // simple shooting at nearest enemy
             if (enemies.length > 0) {
                 const e = enemies[0];
                 const dx = e.x - t.x;
                 const dy = e.y - t.y;
                 const dist = Math.hypot(dx,dy);
-                if (dist < 200) {
-                    e.hp -= 20*dt;
+                if (dist < 200 && t.cooldown <= 0) {
+                    missiles.push(new Missile(t.x, t.y, e));
+                    t.cooldown = 0.5;
                 }
             }
         });
