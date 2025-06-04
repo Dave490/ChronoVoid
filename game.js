@@ -8,6 +8,7 @@ const map = new GameMap();
 const base = new Base();
 const chrono = new Chrono();
 const enemies = [];
+const bullets = [];
 let wave = 0;
 
 function resize() {
@@ -28,10 +29,18 @@ function update(dt) {
     player.update(dt);
     chrono.update(dt);
     base.update(dt);
+    bullets.forEach(b => b.update(dt, enemies));
     enemies.forEach(e => e.update(dt, player));
     // remove dead enemies
     for (let i = enemies.length -1; i >=0; i--) {
-        if (enemies[i].dead) enemies.splice(i,1);
+        if (enemies[i].dead) {
+            enemies.splice(i,1);
+            base.resources += 2;
+            saveGame();
+        }
+    }
+    for (let i = bullets.length -1; i >=0; i--) {
+        if (bullets[i].dead) bullets.splice(i,1);
     }
     if (enemies.length === 0) spawnWave();
 }
@@ -41,8 +50,9 @@ function draw() {
     map.draw(ctx);
     base.draw(ctx);
     enemies.forEach(e => e.draw(ctx));
+    bullets.forEach(b => b.draw(ctx));
     player.draw(ctx);
-    drawHUD(player, wave);
+    drawHUD(player, base, wave);
 }
 
 function gameLoop(timestamp) {

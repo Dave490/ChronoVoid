@@ -6,6 +6,7 @@ This repository contains a small demo of a browser game built with HTML5 Canvas 
 - Basic player and enemy logic with wave-based spawning
 - Minimal base building and time-freeze ability
 - The base now starts with **20 resources**, allowing you to build a turret right away
+- Turrets fire visible bullets and killing enemies yields additional resources
 - Local save system using `localStorage`
 
 Open `index.html` in a modern browser to run the demo. No build step is required.
