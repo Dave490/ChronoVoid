@@ -9,7 +9,11 @@
 <body>
     <canvas id="gameCanvas"></canvas>
     <div id="hud"></div>
-    <div id="leaderboard"></div>
+    <div id="leaderboard">
+        <button id="closeLeaderboard">Close</button>
+        <h2>Leaderboard</h2>
+        <ol id="leaderboardList"></ol>
+    </div>
     <div id="pauseOverlay">Paused - Press P to resume or R to restart</div>
     <script src="ui/joystick.js"></script>
     <script src="ui/button.js"></script>
@@ -23,3 +27,4 @@
     <script src="game.js"></script>
 </body>
 </html>
+

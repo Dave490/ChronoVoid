@@ -67,26 +67,39 @@ function gameLoop(timestamp) {
     requestAnimationFrame(gameLoop);
 }
 
-function saveScore(name, value) {
+function getLeaderboard() {
     const raw = localStorage.getItem('chronovoid-leaderboard');
-    const board = raw ? JSON.parse(raw) : [];
+    return raw ? JSON.parse(raw) : [];
+}
+
+function saveScore(name, value) {
+    const board = getLeaderboard();
     board.push({name, score: value});
     board.sort((a,b) => b.score - a.score);
     localStorage.setItem('chronovoid-leaderboard', JSON.stringify(board));
     return board;
 }
 
-function showLeaderboard(entries) {
+function showLeaderboard(entries = getLeaderboard()) {
     const boardEl = document.getElementById('leaderboard');
-    boardEl.innerHTML = '<h2>Leaderboard</h2>';
-    const list = document.createElement('ol');
-    entries.forEach(e => {
+    const listEl = document.getElementById('leaderboardList');
+    listEl.innerHTML = '';
+    entries.slice(0, 10).forEach(e => {
         const li = document.createElement('li');
         li.textContent = `${e.name}: ${e.score}`;
-        list.appendChild(li);
+        listEl.appendChild(li);
     });
-    boardEl.appendChild(list);
     boardEl.style.display = 'block';
+    paused = true;
+}
+
+function hideLeaderboard() {
+    const boardEl = document.getElementById('leaderboard');
+    boardEl.style.display = 'none';
+    if (gameRunning) {
+        paused = false;
+        lastTime = performance.now();
+    }
 }
 
 function gameOver() {
@@ -115,10 +128,20 @@ window.addEventListener('keydown', e => {
         togglePause();
     } else if (e.key.toLowerCase() === 'r') {
         restartGame();
+    } else if (e.key.toLowerCase() === 'l') {
+        const boardEl = document.getElementById('leaderboard');
+        if (boardEl.style.display === 'block') {
+            hideLeaderboard();
+        } else {
+            showLeaderboard();
+        }
     }
 });
+
+document.getElementById('closeLeaderboard').addEventListener('click', hideLeaderboard);
 
 loadSave();
 spawnWave();
 requestAnimationFrame(gameLoop);
+
 

@@ -31,6 +31,16 @@ body {
     border: 1px solid #0f0;
     display: none;
     z-index: 20;
+    text-align: center;
+}
+
+#leaderboard button {
+    margin-bottom: 10px;
+}
+
+#leaderboard ol {
+    padding-left: 20px;
+    text-align: left;
 }
 
 #pauseOverlay {
@@ -45,3 +55,4 @@ body {
     z-index: 20;
     text-align: center;
 }
+
