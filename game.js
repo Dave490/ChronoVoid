@@ -139,6 +139,7 @@ window.addEventListener('keydown', e => {
 });
 
 document.getElementById('closeLeaderboard').addEventListener('click', hideLeaderboard);
+document.getElementById('resetGame').addEventListener('click', restartGame);
 
 loadSave();
 spawnWave();
