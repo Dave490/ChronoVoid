@@ -125,9 +125,6 @@ function togglePause() {
     }
 }
 
-function restartGame() {
-    window.location.reload();
-}
 
 window.addEventListener('keydown', e => {
     if (e.key.toLowerCase() === 'p') {
