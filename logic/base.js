@@ -1,7 +1,10 @@
 class Base {
     constructor() {
         this.turrets = [];
-        this.resources = 0;
+        // Players start with some resources so they can build initial defenses
+        // right away. Each turret costs 10 resources, so beginning with 20
+        // allows two turrets to be placed on the first load.
+        this.resources = 20;
         new Button('Build Turret', 40, 40, () => this.buildTurret());
     }
     buildTurret() {
